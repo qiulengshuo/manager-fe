@@ -4,7 +4,9 @@
     "useDefineForClassFields": true,
     "module": "ESNext",
     "moduleResolution": "Node",
-    "strict": false,
+    "strict": true,
+    "noImplicitAny": false, // TODO 关闭any的警告
+    "allowJs": true, // TODO 允许js文件的存在
     "jsx": "preserve",
     "resolveJsonModule": true,
     "isolatedModules": true,

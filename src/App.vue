@@ -1,9 +1,14 @@
-<script setup lang="ts">
-import { useStore } from './store'
-import { storeToRefs } from "pinia"
-const store = useStore()
-const { num } = storeToRefs(store)
-const { increment } = store
+<script setup>
+import { useStore } from './store';
+import { storeToRefs } from "pinia";
+import request from './utils/request';
+const store = useStore();
+const { num } = storeToRefs(store);
+const { increment } = store;
+
+request.get('/login', { name: 'admin' }, { loading: true }).then((res) => {
+  console.log(res);
+});
 </script>
 
 <template>
