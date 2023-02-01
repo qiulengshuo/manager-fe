@@ -1,10 +1,11 @@
 <script setup>
-const a = 1;
-console.log(a);
+
 </script>
 
 <template>
-  <div>Home</div>
+  <div>
+    Welcome!!!!!!!
+  </div>
 </template>
 
 <style scoped>
