@@ -2,9 +2,7 @@ import axios from 'axios';
 import config from '../config';
 import { ElMessage } from 'element-plus';
 import router from './../router';
-
-const TOKEN_INVALID = 'Token认证失败，请重新登录';
-const NETWORK_ERROR = '网络请求异常，请稍后重试';
+import { CODE, ERRMSG } from './const';
 
 // 创建 axios 实例对象，添加全局配置
 const service = axios.create({
@@ -25,19 +23,18 @@ service.interceptors.request.use((req: any) => {
 // 响应拦截
 service.interceptors.response.use((res: any) => {
   const { code, data, msg } = res.data;
-  if (code === 200) {
+  if (code === CODE.SUCCESS) {
     return data;
-  } else if (code === 40001) {
-    ElMessage.error(TOKEN_INVALID);
+  } else if (code === CODE.TOKEN_INVALID) {
+    ElMessage.error(ERRMSG.TOKEN_INVALID);
     setTimeout(() => {
       router.push('/login');
     }, 1500);
-    return Promise.reject(TOKEN_INVALID);
+    return Promise.reject(ERRMSG.TOKEN_INVALID);
   } else {
-    ElMessage.error(msg || NETWORK_ERROR);
-    return Promise.reject(msg || NETWORK_ERROR);
+    ElMessage.error(msg || ERRMSG.NETWORK_ERROR);
+    return Promise.reject(msg || ERRMSG.NETWORK_ERROR);
   }
-  return data;
 });
 
 /**
@@ -51,10 +48,17 @@ function request(options) {
   if (options.method.toLowerCase() === 'get') {
     options.params = options.data;
   }
+  if (typeof options.mock !== 'undefined') {
+    config.mock = options.mock;
+  }
   if (config.env === 'prod') {
     service.defaults.baseURL = config.baseApi;
   } else {
-    service.defaults.baseURL = config.mock ? config.mockApi : config.baseApi;
+    service.defaults.baseURL = options.mock
+      ? config.mockApi
+      : config.mock
+      ? config.mockApi
+      : config.baseApi;
   }
   return service(options);
 }

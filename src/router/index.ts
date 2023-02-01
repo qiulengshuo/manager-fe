@@ -20,6 +20,14 @@ const routes = [
       },
     ],
   },
+  {
+    name: 'Login',
+    path: '/login',
+    meta: {
+      title: 'Login',
+    },
+    component: () => import('../views/Login.vue'),
+  },
 ];
 
 const router = createRouter({
