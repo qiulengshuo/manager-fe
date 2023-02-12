@@ -23,7 +23,7 @@ const envConfig = {
 
 export default {
   env,
-  mock: true,
+  mock: false,
   namespace: 'manager',
   ...envConfig[env],
 };
