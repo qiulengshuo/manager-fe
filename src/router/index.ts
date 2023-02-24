@@ -16,7 +16,15 @@ const routes = [
         meta: {
           title: 'Welcome',
         },
-        component: () => import('../components/Welcome.vue'),
+        component: () => import('../views/Welcome.vue'),
+      },
+      {
+        name: 'User',
+        path: '/user',
+        meta: {
+          title: 'User',
+        },
+        component: () => import('../views/User.vue'),
       },
     ],
   },

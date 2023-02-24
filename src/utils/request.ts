@@ -3,6 +3,7 @@ import config from '../config';
 import { ElMessage } from 'element-plus';
 import router from './../router';
 import { CODE, ERRMSG } from './const';
+import storage from './storage';
 
 // 创建 axios 实例对象，添加全局配置
 const service = axios.create({
@@ -12,10 +13,13 @@ const service = axios.create({
 
 // 请求拦截
 service.interceptors.request.use((req: any) => {
-  // TODO Token 的携带
   const headers = req.headers;
+  if (req.url === '/users/login') {
+    return req;
+  }
+  const { token } = storage.getItem('userInfo');
   if (!headers.Authorization) {
-    headers.Authorization = 'Bear Jack';
+    headers.Authorization = 'Bearer ' + token;
   }
   return req;
 });
@@ -48,9 +52,9 @@ function request(options) {
   if (options.method.toLowerCase() === 'get') {
     options.params = options.data;
   }
-  if (typeof options.mock !== 'undefined') {
-    config.mock = options.mock;
-  }
+  // if (typeof options.mock !== 'undefined') {
+  //   config.mock = options.mock;
+  // }
   if (config.env === 'prod') {
     service.defaults.baseURL = config.baseApi;
   } else {

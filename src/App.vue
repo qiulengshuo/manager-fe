@@ -25,6 +25,6 @@
 </template>
 
 <style lang="scss">
-@import url(./assets/style/reset.css);
-@import url(./assets/style/index.scss);
+@import './assets/style/reset.css';
+@import './assets/style/index.scss';
 </style>

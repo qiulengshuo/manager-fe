@@ -27,6 +27,7 @@
     "vue-router": "4"
   },
   "devDependencies": {
+    "@types/node": "^18.13.0",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@vitejs/plugin-vue": "^4.0.0",
     "chalk": "^5.2.0",

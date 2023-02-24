@@ -3,9 +3,9 @@ import { ref } from 'vue';
 import storage from '../utils/storage';
 
 export const useUserInfoStore = defineStore('userInfoStore', () => {
-  let userInfo = ref(storage.getItem('userInfo') || {});
+  const userInfo = ref(storage.getItem('userInfo') || {});
   const saveUserInfo = (info) => {
-    userInfo = ref(info);
+    userInfo.value = info;
     storage.setItem('userInfo', info);
   };
   return {
