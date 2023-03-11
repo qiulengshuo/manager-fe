@@ -11,10 +11,12 @@ const router = useRouter();
 const userInfoStore = useUserInfoStore();
 
 const userInfo = userInfoStore.userInfo;
+// const menuList = userInfoStore.menuList;
+// const actionList = userInfoStore.actionList;
 const handleLogout = (key) => {
   if (key === 'email') return;
   userInfoStore.saveUserInfo({});
-  userInfo.value = null;
+  userInfo.value = {};
   router.push('/login');
 };
 
@@ -36,8 +38,10 @@ const getNoticeCount = async () => {
 const userMenu = ref([]);
 const getMenuList = async () => {
   try {
-    const list = await API.getMenuList();
-    userMenu.value = list;
+    const { menuList, actionList } = await API.getPermissionList();
+    userInfoStore.saveMenuList(menuList);
+    userInfoStore.saveActionList(actionList);
+    userMenu.value = menuList;
   } catch (error) {
     console.error(error);
   }

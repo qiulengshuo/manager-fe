@@ -22,21 +22,39 @@ export default {
     });
   },
   // 菜单列表
-  getMenuList() {
+  getMenuList(params) {
     return request({
       url: '/menu/list',
       method: 'get',
-      data: {},
-      mock: true,
+      data: params,
+      mock: false,
     });
   },
-  // 用户列表
+  // 获取权限菜单列表
+  getPermissionList() {
+    return request({
+      url: '/users/getPermissionList',
+      method: 'get',
+      data: {},
+      mock: false,
+    });
+  },
+  // 按页用户列表
   getUserList(params) {
     return request({
       url: '/users/list',
       method: 'get',
       data: params,
-      mock: true,
+      mock: false,
+    });
+  },
+  // 用户所有用户列表
+  getAllUserList() {
+    return request({
+      url: '/users/all/list',
+      method: 'get',
+      data: {},
+      mock: false,
     });
   },
   // 删除用户
@@ -45,23 +63,7 @@ export default {
       url: '/users/delete',
       method: 'post',
       data: params,
-      mock: true,
-    });
-  },
-  getRoleList() {
-    return request({
-      url: '/roles/allList',
-      method: 'get',
-      data: {},
-      mock: true,
-    });
-  },
-  getDeptList() {
-    return request({
-      url: '/dept/list',
-      method: 'get',
-      data: {},
-      mock: true,
+      mock: false,
     });
   },
   userSubmit(params) {
@@ -69,7 +71,70 @@ export default {
       url: '/users/operate',
       method: 'post',
       data: params,
-      mock: true,
+      mock: false,
+    });
+  },
+  // 角色列表
+  getRoleAllList() {
+    return request({
+      url: '/roles/allList',
+      method: 'get',
+      data: {},
+      mock: false,
+    });
+  },
+  // 角色详细列表
+  getRoleList(params) {
+    return request({
+      url: '/roles/list',
+      method: 'get',
+      data: params,
+      mock: false,
+    });
+  },
+  // 部门列表
+  getDeptList(params) {
+    return request({
+      url: '/dept/list',
+      method: 'get',
+      data: params,
+      mock: false,
+    });
+  },
+  // 提交操作(新增或编辑或删除)
+  menuSubmit(params) {
+    return request({
+      url: '/menu/operate',
+      method: 'post',
+      data: params,
+      mock: false,
+    });
+  },
+  // 角色操作(新增、编辑、删除)
+  roleOperate(params) {
+    return request({
+      url: '/roles/operate',
+      method: 'post',
+      data: params,
+      mock: false,
+    });
+  },
+  // 更新权限列表
+  updatePermission(params) {
+    return request({
+      url: '/roles/update/permission',
+      method: 'post',
+      data: params,
+      mock: false,
+    });
+  },
+  // 部门操作
+  deptOperate(params) {
+    return request({
+      url: '/dept/operate',
+      method: 'post',
+      data: params,
+      mock: false,
     });
   },
 };

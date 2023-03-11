@@ -52,17 +52,14 @@ function request(options) {
   if (options.method.toLowerCase() === 'get') {
     options.params = options.data;
   }
-  // if (typeof options.mock !== 'undefined') {
-  //   config.mock = options.mock;
-  // }
+  let isMock = config.mock;
+  if (typeof options.mock !== 'undefined') {
+    isMock = options.mock;
+  }
   if (config.env === 'prod') {
     service.defaults.baseURL = config.baseApi;
   } else {
-    service.defaults.baseURL = options.mock
-      ? config.mockApi
-      : config.mock
-      ? config.mockApi
-      : config.baseApi;
+    service.defaults.baseURL = isMock ? config.mockApi : config.baseApi;
   }
   return service(options);
 }

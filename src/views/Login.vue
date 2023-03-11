@@ -9,8 +9,8 @@ const router = useRouter();
 const userInfoStore = useUserInfoStore();
 
 const user = ref({
-  userName: '',
-  userPwd: ''
+  userName: 'admin',
+  userPwd: '123456'
 });
 
 const userForm = ref();
@@ -31,7 +31,7 @@ const rules = {
 const login = () => {
   userForm.value.validate((valid) => {
     if (valid) {
-      API.login(user.value).then((res) => {
+      API.login(user.value).then(async (res) => {
         userInfoStore.saveUserInfo(res);
         router.push('/welcome');
       });

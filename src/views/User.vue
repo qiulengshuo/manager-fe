@@ -2,12 +2,13 @@
 import { ElMessage } from 'element-plus';
 import { nextTick, onMounted, ref } from 'vue';
 import API from '../api';
+import shared from '../utils/shared';
 
 const form = ref();
 const user = ref({
   userId: '',
   userName: '',
-  state: ''
+  state: 1
 });
 const checkedUserIds = ref([]);
 const userList = ref([]);
@@ -47,11 +48,19 @@ const columns = ref([
   },
   {
     label: '注册时间',
-    prop: 'createTime'
+    prop: 'createTime',
+    width: 180,
+    formatter: (row, column, value) => {
+      return shared.formateDate(new Date(value));
+    },
   },
   {
     label: '最后登录时间',
-    prop: 'lastLoginTime'
+    prop: 'lastLoginTime',
+    width: 180,
+    formatter: (row, column, value) => {
+      return shared.formateDate(new Date(value));
+    },
   }
 ]);
 const pager = ref({
@@ -61,7 +70,7 @@ const pager = ref({
 });
 const showModal = ref(false);
 const userForm = ref({
-  state: 3
+  state: 1
 });
 const rules = ref({
   userName: [
@@ -80,7 +89,7 @@ const rules = ref({
   ],
   mobile: [
     {
-      pattern: /1{3-9}\d{9}/,
+      pattern: /1[3-9]\d{9}/,
       message: '请输入正确的手机号格式',
       trigger: 'blur'
     }
@@ -104,7 +113,7 @@ const $refs = {
 
 // 获取用户列表
 const getUserList = async () => {
-  const params = { ...user, ...pager };
+  const params = { ...user.value, ...pager.value };
   try {
     const { list, page } = await API.getUserList(params);
     userList.value = list;
@@ -143,7 +152,7 @@ const handlePatchDel = async () => {
   const res = await API.userDel({
     userIds: checkedUserIds.value
   });
-  if (res.nModified > 0) {
+  if (res.modifiedCount > 0) {
     ElMessage.success('删除成功');
     getUserList();
   } else {
@@ -181,8 +190,8 @@ const getDeptList = async () => {
   let list = await API.getDeptList();
   deptList.value = list;
 };
-const getRoleList = async () => {
-  let list = await API.getRoleList();
+const getRoleAllList = async () => {
+  let list = await API.getRoleAllList();
   roleList.value = list;
 };
 const handleClose = () => {
@@ -198,7 +207,7 @@ const handleSubmit = () => {
       const res = await API.userSubmit(params);
       if (res) {
         showModal.value = false;
-        ElMessage.success("用户创建成功");
+        ElMessage.success("用户操作成功");
         handleReset("dialogForm");
         getUserList();
       }
@@ -209,7 +218,7 @@ const handleSubmit = () => {
 onMounted(() => {
   getUserList();
   getDeptList();
-  getRoleList();
+  getRoleAllList();
 });
 
 </script>
@@ -240,8 +249,8 @@ onMounted(() => {
     </div>
     <div class="base-table">
       <div class="action">
-        <el-button type="primary" @click="handleCreate">新增</el-button>
-        <el-button type="danger" @click="handlePatchDel">批量删除</el-button>
+        <el-button type="primary" @click="handleCreate" v-has="'user-create'">新增</el-button>
+        <el-button type="danger" @click="handlePatchDel" v-has="'user-patch-delete'">批量删除</el-button>
       </div>
       <el-table :data="userList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" />
@@ -250,15 +259,15 @@ onMounted(() => {
         </el-table-column>
         <el-table-column label="操作" width="150">
           <template #default="scope">
-            <el-button @click="handleEdit(scope.row)" size="small">编辑</el-button>
-            <el-button type="danger" size="small" @click="handleDel(scope.row)">删除</el-button>
+            <el-button @click="handleEdit(scope.row)" size="small" v-has="'user-edit'">编辑</el-button>
+            <el-button type="danger" size="small" @click="handleDel(scope.row)" v-has="'user-delete'">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination class="pagination" background layout="prev, pager, next" :total="pager.total"
         :page-size="pager.pageSize" @current-change="handleCurrentChange" />
     </div>
-    <el-dialog title="用户新增" v-model="showModal">
+    <el-dialog @close="handleClose" title="用户新增" v-model="showModal">
       <el-form ref="dialogForm" :model="userForm" label-width="100px" :rules="rules">
         <el-form-item label="用户名" prop="userName">
           <el-input :disabled="action === 'edit'" v-model="userForm.userName" placeholder="请输入用户名称" />
