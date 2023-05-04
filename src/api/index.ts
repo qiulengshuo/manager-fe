@@ -18,7 +18,7 @@ export default {
       url: '/leave/count',
       method: 'get',
       data: {},
-      mock: true,
+      mock: false,
     });
   },
   // 菜单列表
@@ -133,6 +133,104 @@ export default {
     return request({
       url: '/dept/operate',
       method: 'post',
+      data: params,
+      mock: false,
+    });
+  },
+  // 休假列表
+  getApplyList(params) {
+    return request({
+      url: '/leave/list',
+      method: 'get',
+      data: params,
+      mock: false,
+    });
+  },
+  // 休假操作
+  leaveOperate(params) {
+    return request({
+      url: '/leave/operate',
+      method: 'post',
+      data: params,
+      mock: false,
+    });
+  },
+  // 休假审批
+  leaveApprove(params) {
+    return request({
+      url: '/leave/approve',
+      method: 'post',
+      data: params,
+      mock: false,
+    });
+  },
+  // 获取标准列表
+  getStandardList(params) {
+    return request({
+      url: '/assessment/standardList',
+      method: 'get',
+      data: params,
+      mock: false,
+    });
+  },
+  // 操作标准列表
+  operateStandardList(params) {
+    return request({
+      url: '/assessment/operateStandardList',
+      method: 'post',
+      data: params,
+      mock: false,
+    });
+  },
+  // 获取部门评级列表
+  getDeptAllList() {
+    return request({
+      url: '/dept/allList',
+      method: 'get',
+      data: {},
+      mock: false,
+    });
+  },
+  // 评估
+  operateAssessment(params) {
+    return request({
+      url: '/assessment/operateAssessment',
+      method: 'post',
+      data: params,
+      mock: false,
+    });
+  },
+  // 验证是否评估过
+  hadAssessment(params) {
+    return request({
+      url: '/assessment/validHadAssessment',
+      method: 'get',
+      data: params,
+      mock: false,
+    });
+  },
+  // 获取评估结果
+  getAssessmentResult(params) {
+    return request({
+      url: '/assessment/assessmentResult',
+      method: 'get',
+      data: params,
+      mock: false,
+    });
+  },
+  // 操作课程或专业列表
+  operateDetailList(params) {
+    return request({
+      url: '/assessment/operateDetailList',
+      method: 'post',
+      data: params,
+      mock: false,
+    });
+  },
+  getDetailList(params) {
+    return request({
+      url: '/assessment/detailList',
+      method: 'get',
       data: params,
       mock: false,
     });

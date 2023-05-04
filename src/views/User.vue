@@ -97,7 +97,7 @@ const rules = ref({
   deptId: [
     {
       required: true,
-      message: '请输入用户部门',
+      message: '请输入用户所属教学层级',
       trigger: 'blur'
     }
   ]
@@ -296,7 +296,7 @@ onMounted(() => {
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="部门" prop="deptId">
+        <el-form-item label="所属教学层级" prop="deptId">
           <el-cascader style="width: 100%;" v-model="userForm.deptId" placeholder="请选择所属部门" :options="deptList"
             :props="{ checkStrictly: true, value: '_id', label: 'deptName' }" clearable></el-cascader>
         </el-form-item>

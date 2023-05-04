@@ -7,7 +7,7 @@
     <div class="content">
       <div class="sub-title">欢迎体验</div>
       <div class="title">学生质量评估后台管理系统</div>
-      <div class="desc">- Vue3.0+ElementPlus+Node+Mongo打造后台管理系统</div>
+      <div class="desc">- Vue3.0+ElementPlus+Node+MongoDB打造后台管理系统</div>
     </div>
     <div class="img"></div>
   </div>
@@ -46,7 +46,7 @@
 
   .img {
     margin-left: 105px;
-    background-image: url('../assets/images/welcome.png');
+    background-image: url('../assets/images/welcome.jpg');
     width: 371px;
     height: 438px;
   }

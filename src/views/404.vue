@@ -8,13 +8,14 @@ const goHome = () => {
 
 <template>
   <div class="exception">
-    <img src="../assets/images/404.jpeg" />
-    <el-button @click="goHome" class="btn-home">回首页</el-button>
+    <img src="../assets/images/404.png" />
+    <el-button @click="goHome" class="btn-home" type="danger">回登录页</el-button>
   </div>
 </template>
 
 <style lang="scss">
 .exception {
+  height: 100%;
   position: relative;
 
   img {
@@ -23,10 +24,14 @@ const goHome = () => {
   }
 
   .btn-home {
+    width: 200px;
+    height: 50px;
+    font-size: 26px;
+    border-radius: 20px;
     position: fixed;
-    bottom: 100px;
+    bottom: 200px;
     left: 50%;
-    margin-left: -34px;
+    margin-left: -100px;
   }
 }
 </style>

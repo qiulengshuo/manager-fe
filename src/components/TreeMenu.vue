@@ -1,5 +1,5 @@
 <script setup>
-import { Document } from '@element-plus/icons-vue';
+import { Document, Setting } from '@element-plus/icons-vue';
 defineProps(['userMenu']);
 </script>
 
@@ -9,7 +9,8 @@ defineProps(['userMenu']);
       :index="menu.path">
       <template #title>
         <el-icon>
-          <Document />
+          <Setting v-if="Math.random() > 0.5" />
+          <Document v-else />
         </el-icon>
         <span>{{ menu.menuName }}</span>
       </template>
@@ -21,6 +22,4 @@ defineProps(['userMenu']);
   </template>
 </template>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

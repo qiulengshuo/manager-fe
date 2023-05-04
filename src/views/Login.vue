@@ -47,7 +47,7 @@ const login = () => {
   <div class="login-wrapper">
     <div class="modal">
       <el-form ref="userForm" :model="user" status-icon :rules="rules">
-        <div class="title">火星</div>
+        <div class="title">学生质量评估系统</div>
         <el-form-item prop="userName">
           <el-input type="text" :prefix-icon="User" v-model="user.userName" />
         </el-form-item>
@@ -67,7 +67,7 @@ const login = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f9fcff;
+  background-image: linear-gradient(135deg, #C2FFD8 10%, #465EFB 100%);
   width: 100vw;
   height: 100vh;
 

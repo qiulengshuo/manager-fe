@@ -45,7 +45,7 @@ const rules = {
 
 const columns = [
   {
-    label: '部门名称',
+    label: '教学层级名称',
     prop: 'deptName'
   },
   {
@@ -128,8 +128,8 @@ onMounted(() => {
   <div class="dept-manage">
     <div class="query-form">
       <el-form :inline="true" ref="queryFormRef" :model="queryForm">
-        <el-form-item prop="deptName" label="部门名称">
-          <el-input placeholder="请输入部门名称" v-model="queryForm.deptName"></el-input>
+        <el-form-item prop="deptName" label="教学层级名称">
+          <el-input placeholder="请输入教学层级名称" v-model="queryForm.deptName"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button @click="getDeptList" type="primary">查询</el-button>
@@ -151,18 +151,18 @@ onMounted(() => {
         </el-table-column>
       </el-table>
     </div>
-    <el-dialog :title="action == 'create' ? '创建部门' : '编辑部门'" v-model="showModal">
+    <el-dialog :title="action == 'create' ? '创建教学层级' : '编辑教学层级'" v-model="showModal">
       <el-form ref="dialogForm" :model="deptForm" :rules="rules" label-width="120px">
-        <el-form-item label="上级部门" prop="parentId">
-          <el-cascader placeholder="请选择上级部门" v-model="deptForm.parentId"
+        <el-form-item label="上一层级" prop="parentId">
+          <el-cascader placeholder="请选择上一层级" v-model="deptForm.parentId"
             :props="{ checkStrictly: true, value: '_id', label: 'deptName' }" clearable :options="deptList"
             :show-all-levels="true"></el-cascader>
         </el-form-item>
-        <el-form-item label="部门名称" prop="deptName">
-          <el-input placeholder="请输入部门名称" v-model="deptForm.deptName"></el-input>
+        <el-form-item label="教学层级名称" prop="deptName">
+          <el-input placeholder="请输入教学层级名称" v-model="deptForm.deptName"></el-input>
         </el-form-item>
         <el-form-item label="负责人" prop="user">
-          <el-select placeholder="请选择部门负责人" v-model="deptForm.user" @change="handleUser">
+          <el-select placeholder="请选择教学层级负责人" v-model="deptForm.user" @change="handleUser">
             <el-option v-for="item in userList" :key="item.userId" :label="item.userName"
               :value="`${item.userId}/${item.userName}/${item.userEmail}`"></el-option>
           </el-select>

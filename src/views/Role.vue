@@ -222,7 +222,7 @@ onMounted(async () => {
         :page-size="pager.pageSize" @current-change="handleCurrentChange" />
     </div>
 
-    <el-dialog title="用户新增" v-model="showModal">
+    <el-dialog :title="action === 'create' ? '角色新增' : '角色编辑'" v-model="showModal">
       <el-form ref="dialogForm" :model="roleForm" label-width="100px" :rules="rules">
         <el-form-item label="角色名称" prop="roleName">
           <el-input v-model="roleForm.roleName" placeholder="请输入角色名称" />

@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { Bell, Fold } from '@element-plus/icons-vue';
 import { useRouter } from 'vue-router';
 import { useUserInfoStore } from '../store';
@@ -11,12 +11,10 @@ const router = useRouter();
 const userInfoStore = useUserInfoStore();
 
 const userInfo = userInfoStore.userInfo;
-// const menuList = userInfoStore.menuList;
-// const actionList = userInfoStore.actionList;
+
 const handleLogout = (key) => {
   if (key === 'email') return;
   userInfoStore.saveUserInfo({});
-  userInfo.value = {};
   router.push('/login');
 };
 
@@ -25,11 +23,10 @@ const toggle = () => {
   isCollapse.value = !isCollapse.value;
 };
 
-const noticeCount = ref(0);
 const getNoticeCount = async () => {
   try {
     const count = await API.noticeCount();
-    noticeCount.value = count;
+    userInfoStore.saveNoticeCount(count)
   } catch (error) {
     console.error(error);
   }
@@ -81,11 +78,11 @@ onMounted(() => {
           <BreadCrumb />
         </div>
         <div class="user-info">
-          <el-badge :is-dot="noticeCount > 0 ? true : false" class="notice" type="danger">
+          <!-- <el-badge @click="router.push('/audit/approve')" :is-dot="userInfoStore.noticeCount > 0 ? true : false" class="notice" type="danger">
             <el-icon>
               <Bell />
             </el-icon>
-          </el-badge>
+          </el-badge> -->
           <el-dropdown @command="handleLogout">
             <span class="user-link">
               {{ userInfo.userName }}
@@ -193,6 +190,7 @@ onMounted(() => {
           align-items: center;
           line-height: 30px;
           margin-right: 15px;
+          cursor: pointer;
         }
 
         .user-link {
